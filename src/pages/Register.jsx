@@ -2,29 +2,30 @@ import reactLogo from '../assets/react.svg'
 import {useState} from 'react'
 import {supabase} from '../api/client'
 
-export default function Login() {
+export default function Register() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  try {
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
 
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password
-      })
-
-       if (error) {
-          console.error('Supabase error:', error.message);
-          // También puedes mostrarlo en UI si quieres
-          return;
-        }
-    } catch (error) {
-      console.log(error);
+    if (error) {
+      console.error('Supabase error:', error.message);
+      // También puedes mostrarlo en UI si quieres
+      return;
     }
+  } catch (e) {
+
+    console.error('Error inesperado:', e);
+    
   }
+};
 
   return (
     <>
@@ -35,7 +36,7 @@ export default function Login() {
             src={reactLogo}
             className="mx-auto h-10 w-auto"
           />
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Iniciar Sesión</h2>
+          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Registrarse</h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -82,15 +83,15 @@ export default function Login() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
-                Iniciar Sesión
+                Registrarse
               </button>
             </div>
           </form>
 
           <p className="mt-10 text-center text-sm/6 text-gray-400">
-            ¿No tienes una cuenta?{' '}
-            <a href="/register" className="font-semibold text-indigo-400 hover:text-indigo-300">
-              Registrate
+            ¿Ya tienes una cuenta?{' '}
+            <a href="/" className="font-semibold text-indigo-400 hover:text-indigo-300 cursor-pointer">
+              Iniciar Sesión
             </a>
           </p>
         </div>
