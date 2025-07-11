@@ -36,8 +36,8 @@ Aplicación de gestión de tareas construida con **React**, **Vite**, **Supabase
 
 3. **Crea el archivo .env.local:**
 
-VITE_SUPABASE_URL=https://tu-proyecto.supabase.co
-VITE_SUPABASE_ANON_KEY=tu_clave_anonima
+- VITE_SUPABASE_URL=https://tu-proyecto.supabase.co
+- VITE_SUPABASE_ANON_KEY=tu_clave_anonima
 
 4. **Inicia el proyecto en desarrollo:**
 
