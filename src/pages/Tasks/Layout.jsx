@@ -120,7 +120,7 @@ export default function Layout({header, button, children}) {
               <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold tracking-tight text-white">{header}</h1>
                 <Link
-                  href={button.href}
+                  to={button.href}
                   className="inline-flex items-center rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-600 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   {button.name}

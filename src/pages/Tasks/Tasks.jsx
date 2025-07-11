@@ -101,7 +101,7 @@ export default function Tasks() {
                     <>
                       <div className="-ml-px flex w-0 flex-1 items-center justify-center px-3">
                         <Link
-                          href={`/edit-task/${task.id}`}
+                          to={`/edit-task/${task.id}`}
                           className="inline-flex items-center space-x-1 text-blue-600 hover:text-blue-900 text-sm font-medium"
                         >
                           <PencilSquareIcon className="h-5 w-5" />
