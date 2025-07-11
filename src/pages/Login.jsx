@@ -1,7 +1,7 @@
 import reactLogo from '../assets/react.svg'
 import Message from './Messages/Message';
 import { useState, useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { supabase } from '../api/client'
 
 export default function Login() {
@@ -122,9 +122,9 @@ export default function Login() {
 
           <p className="mt-10 text-center text-sm/6 text-gray-400">
             ¿No tienes una cuenta?{' '}
-            <a href="/register" className="font-semibold text-indigo-400 hover:text-indigo-300">
+            <Link href="/register" className="font-semibold text-indigo-400 hover:text-indigo-300">
               Registrate
-            </a>
+            </Link>
           </p>
         </div>
       </div>

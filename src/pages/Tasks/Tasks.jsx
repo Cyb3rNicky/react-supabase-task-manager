@@ -5,6 +5,7 @@ import Layout from './Layout.jsx'
 import DeleteTaskButton from './DeleteTask.jsx'
 import CompleteTaskButton from './CompleteTask.jsx'
 import Notification from '../Messages/Notification.jsx'
+import { Link } from 'react-router-dom'
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([])
@@ -99,13 +100,13 @@ export default function Tasks() {
                   {!task.terminada && (
                     <>
                       <div className="-ml-px flex w-0 flex-1 items-center justify-center px-3">
-                        <a
+                        <Link
                           href={`/edit-task/${task.id}`}
                           className="inline-flex items-center space-x-1 text-blue-600 hover:text-blue-900 text-sm font-medium"
                         >
                           <PencilSquareIcon className="h-5 w-5" />
                           <span>Editar</span>
-                        </a>
+                        </Link>
                       </div>
 
                       <div className="-ml-px flex w-0 flex-1 items-center justify-center px-3">
