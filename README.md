@@ -32,7 +32,7 @@ cd react-supabase-task-manager
 2. **Instala dependencias:**
 
 npm install
-# o con Yarn
+o con Yarn
 yarn install
 
 3. **Crea el archivo .env.local:**
@@ -43,7 +43,7 @@ VITE_SUPABASE_ANON_KEY=tu_clave_anonima
 4. **Inicia el proyecto en desarrollo:**
 
 npm run dev
-# o con Yarn
+o con Yarn
 yarn dev
 
 
@@ -106,5 +106,5 @@ USING (auth.uid() = user_id);
 # 🧼 Build para producción
 
 npm run build
-# o con Yarn
+o con Yarn
 yarn build
