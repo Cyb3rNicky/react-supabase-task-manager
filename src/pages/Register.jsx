@@ -1,34 +1,70 @@
 import reactLogo from '../assets/react.svg'
-import {useState} from 'react'
+import Message from './Messages/Message';
+import {useState, useEffect} from 'react'
+import { useNavigate } from "react-router-dom";
 import {supabase} from '../api/client'
 
 export default function Register() {
 
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const [showMessage, setShowMessage] = useState(false)
+  const [messageData, setMessageData] = useState({
+    title: '',
+    description: '',
+    type: 'error'
+  });
+  
+
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    e.preventDefault();
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
 
-    if (error) {
-      console.error('Supabase error:', error.message);
-      // También puedes mostrarlo en UI si quieres
-      return;
+      if (error) {
+        setMessageData({
+          title: 'Error de inicio de sesión',
+          description: error.message,
+          type: 'error'
+        });
+        setShowMessage(true);
+        return;
+      }
+
+    } catch (error) {
+      setMessageData({
+        title: 'Error inesperado',
+        description: 'Ocurrió un error al intentar iniciar sesión.',
+        type: 'error'
+      });
+      setShowMessage(true);
     }
-  } catch (e) {
+  };
 
-    console.error('Error inesperado:', e);
-    
-  }
-};
+  useEffect(() => {
+    supabase.auth.onAuthStateChange((session) => {
+      if (session === "SIGNED_IN") {
+        navigate("/home");
+      }
+    });
+  }, []);
 
   return (
     <>
+      <Message
+        show={showMessage}
+        setShow={setShowMessage}
+        type={messageData.type}
+        title={messageData.title}
+        description={messageData.description}
+      />
+
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img

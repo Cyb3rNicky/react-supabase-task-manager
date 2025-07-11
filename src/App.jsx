@@ -1,35 +1,23 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Error404 from "./pages/404.jsx";
-import Layout from "./pages/Tasks/Layout.jsx";
-
-import { supabase } from "./api/client.js";
-import { useEffect } from "react";
+import Tasks from "./pages/Tasks/Tasks.jsx";
+import CreateTask from "./pages/Tasks/CreateTask.jsx";
+import EditTask from "./pages/Tasks/EditTask.jsx";
 
 function App() {
-
-  const navigate = useNavigate();
-
-   useEffect(() => {
-      supabase.auth.onAuthStateChange((event, session) => {
-        if (!session) {
-          console.log("No session found, redirecting to login.");
-        } else {
-          console.log("Session found, redirecting to dashboard.");
-          navigate("/home");
-        }
-      });
-    }, []);
-  
 
     return (
     <>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<Layout />} />
+        <Route path="/home" element={<Tasks />} />
+        <Route path="/create-task" element={<CreateTask />} />
+        <Route path="/edit-task/:id" element={<EditTask />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </>

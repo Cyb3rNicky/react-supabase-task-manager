@@ -1,33 +1,69 @@
 import reactLogo from '../assets/react.svg'
-import {useState} from 'react'
-import {supabase} from '../api/client'
+import Message from './Messages/Message';
+import { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
+import { supabase } from '../api/client'
 
 export default function Login() {
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const [showMessage, setShowMessage] = useState(false)
+  const [messageData, setMessageData] = useState({
+    title: '',
+    description: '',
+    type: 'error'
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const { error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password
-      })
+        email,
+        password
+      });
 
-       if (error) {
-          console.error('Supabase error:', error.message);
-          // También puedes mostrarlo en UI si quieres
-          return;
-        }
+      if (error) {
+        setMessageData({
+          title: 'Error de inicio de sesión',
+          description: error.message,
+          type: 'error'
+        });
+        setShowMessage(true);
+        return;
+      }
+
     } catch (error) {
-      console.log(error);
+      setMessageData({
+        title: 'Error inesperado',
+        description: 'Ocurrió un error al intentar iniciar sesión.',
+        type: 'error'
+      });
+      setShowMessage(true);
     }
-  }
+  };
+
+ useEffect(() => {
+    supabase.auth.onAuthStateChange((session) => {
+      if (session === "SIGNED_IN") {
+        navigate("/home");
+      }
+    });
+  }, []);
 
   return (
     <>
+      <Message
+        show={showMessage}
+        setShow={setShowMessage}
+        type={messageData.type}
+        title={messageData.title}
+        description={messageData.description}
+      />
+
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -39,8 +75,7 @@ export default function Login() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          
-          <form action="#" method="POST" onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-white">
                 Correo Electrónico
@@ -48,8 +83,8 @@ export default function Login() {
               <div className="mt-2">
                 <input
                   id="email"
-                  name="email"
                   type="email"
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   autoComplete="email"
@@ -59,16 +94,14 @@ export default function Login() {
             </div>
 
             <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm/6 font-medium text-white">
-                  Contraseña
-                </label>
-              </div>
+              <label htmlFor="password" className="block text-sm/6 font-medium text-white">
+                Contraseña
+              </label>
               <div className="mt-2">
                 <input
                   id="password"
-                  name="password"
                   type="password"
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   autoComplete="current-password"
@@ -96,5 +129,5 @@ export default function Login() {
         </div>
       </div>
     </>
-  )
+  );
 }
