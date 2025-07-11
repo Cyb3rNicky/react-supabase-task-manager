@@ -25,26 +25,24 @@ Aplicación de gestión de tareas construida con **React**, **Vite**, **Supabase
 
 1. **Clona el repositorio:**
 
-bash
-git clone https://github.com/Cyb3rNicky/react-supabase-task-manager
-cd react-supabase-task-manager
+- bash
+- git clone https://github.com/Cyb3rNicky/react-supabase-task-manager
+- cd react-supabase-task-manager
 
 2. **Instala dependencias:**
 
-npm install
-# o con Yarn
-yarn install
+- npm install
+- yarn install
 
 3. **Crea el archivo .env.local:**
 
-VITE_SUPABASE_URL=https://tu-proyecto.supabase.co
-VITE_SUPABASE_ANON_KEY=tu_clave_anonima
+- VITE_SUPABASE_URL=https://tu-proyecto.supabase.co
+- VITE_SUPABASE_ANON_KEY=tu_clave_anonima
 
 4. **Inicia el proyecto en desarrollo:**
 
-npm run dev
-# o con Yarn
-yarn dev
+- npm run dev
+- yarn dev
 
 
 # 🗄️ Configuración de Supabase
@@ -105,6 +103,5 @@ USING (auth.uid() = user_id);
 
 # 🧼 Build para producción
 
-npm run build
-# o con Yarn
-yarn build
+- npm run build
+- yarn build
